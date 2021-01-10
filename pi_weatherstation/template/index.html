@@ -1,0 +1,90 @@
+<html>
+<head>
+    <link href="{{resources_folder}}/css/all.css" rel="stylesheet">
+</head>
+<style>
+    * {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        width: 240px;
+        height: 240px;
+    }
+
+    .main {
+        background-color: #5C7AFF;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-content: stretch;
+        align-items: center;
+        color: #FFF;
+        width: 240px;
+        height: 240px;
+    }
+
+    .widget {
+        padding: 10px;
+        text-align: center;
+    }
+    .value {
+        display: block;
+    }
+    .cell {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .sticker {
+        font-size: 15px;
+        background-color: #fff;
+        color: #5C7AFF;
+    }
+    .fas {
+        vertical-align: middle;
+    }
+    .temperature {
+        font-size: 36px;
+    }
+
+    .humidity {
+        font-size: 24px;
+    }
+</style>
+
+<body>
+    <div class="main">
+        <span class="widget temperature">
+            <div class="value">
+                <i class="fas fa-thermometer-three-quarters"></i>
+                10°
+            </div>
+        </span>
+        <span class="widget humidity">
+            <div class="value">
+                <i class="fas fa-water"></i>
+                <span class="cell">50%
+                    <div class="sticker">Good</div>
+                </span>
+            </div>
+        </span>
+        <span class="widget air-quality">
+            <div class="value">
+                <span class="cell">Air quality
+                    <div class="sticker">Good</div>
+                </span>
+            </div>
+        </span>
+        <span class="widget time">
+            <div class="value">
+                <i class="fas fa-clock"></i>
+                <span class="cell">19 NOV 2020
+                    <div class="sticker">21:55</div>
+                </span>
+            </div>
+        </span>
+    </div>
+</body>
+<html>
