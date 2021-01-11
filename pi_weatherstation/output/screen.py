@@ -19,7 +19,8 @@ class ScreenOutput:
         self.weather_data = weather_data
 
     def _render_image(self):
-        img = imgkit.from_string(template.render(resources_folder=RESOURCES_PATH), False, options={
+        rendered = template.render(resources_folder=RESOURCES_PATH)
+        img = imgkit.from_string(rendered, False, options={
             "width": "240",
             "height": "240",
             "enable-local-file-access": "",
