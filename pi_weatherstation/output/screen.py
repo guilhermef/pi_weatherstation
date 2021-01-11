@@ -1,8 +1,7 @@
-import tempfile
 import pathlib
 
 from jinja2 import Environment, PackageLoader, select_autoescape
-from selenium import webdriver
+import imgkit
 
 RESOURCES_PATH = pathlib.Path(
     pathlib.Path(__file__).parent, "..", "template", "resources"
@@ -14,22 +13,21 @@ env = Environment(
 )
 template = env.get_template("index.html")
 
-driver = webdriver.PhantomJS()
-driver.set_window_position(0, 0)
-driver.set_window_size(240, 240)
-
 
 class ScreenOutput:
     def __init__(self, weather_data):
         self.weather_data = weather_data
 
     def _render_image(self):
-        with tempfile.NamedTemporaryFile(mode="w+", suffix=".html") as f:
-            template.stream(resources_folder=RESOURCES_PATH).dump(f)
-            f.seek(0)
-            driver.get(f"file://{f.name}")
-            driver.get_screenshot_as_file("test.png")
-            img = driver.get_screenshot_as_png()
+        img = imgkit.from_string(template.render(resources_folder=RESOURCES_PATH), False, options={
+            "width": "240",
+            "height": "240",
+            "enable-local-file-access": "",
+            'encoding': "UTF-8",
+        })
+
+        with open("test.png", "wb") as f:
+            f.write(img)
         return img
 
     def output(self):

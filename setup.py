@@ -10,7 +10,7 @@ setup(
     license="MIT",
     packages=["pi_weatherstation"],
     install_requires=[
-        "selenium",
+        "imgkit",
         "jinja2",
     ],
     zip_safe=False,
