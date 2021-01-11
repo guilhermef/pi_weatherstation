@@ -12,16 +12,8 @@ env = Environment(
     loader=PackageLoader("pi_weatherstation", "template"),
     autoescape=select_autoescape(["html"]),
 )
-
 template = env.get_template("index.html")
 
-# options = webdriver.ChromeOptions()
-# options.add_argument("--window-size=240,240")
-# options.add_argument("--headless")
-# options.add_argument("--force-device-scale-factor=1.0")
-# driver = webdriver.Chrome(options=options)
-# driver.set_window_position(0, 0)
-# driver.set_window_size(240, 240))
 driver = webdriver.PhantomJS()
 driver.set_window_position(0, 0)
 driver.set_window_size(240, 240)
