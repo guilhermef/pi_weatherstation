@@ -10,8 +10,9 @@ setup(
     license="MIT",
     packages=["pi_weatherstation"],
     install_requires=[
-        "imgkit",
-        "jinja2",
+        "imgkit<2.0",
+        "jinja2<3.0",
+        "async-cron<2.0",
     ],
     zip_safe=False,
     entry_points={

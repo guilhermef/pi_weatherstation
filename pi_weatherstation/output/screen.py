@@ -1,3 +1,6 @@
+
+import asyncio
+import logging
 import pathlib
 
 from jinja2 import Environment, PackageLoader, select_autoescape
@@ -15,8 +18,9 @@ template = env.get_template("index.html")
 
 
 class ScreenOutput:
-    def __init__(self, weather_data):
-        self.weather_data = weather_data
+    def __init__(self, store):
+        self.store = store
+        self.running = False
 
     def _render_image(self):
         rendered = template.render(resources_folder=RESOURCES_PATH)
@@ -31,5 +35,12 @@ class ScreenOutput:
             f.write(img)
         return img
 
-    def output(self):
+    async def output(self):
+        if self.running:
+            logging.debug("Skipping, render already in progress")
+        logging.debug("Starting screen render")
+        self.running = True
+        await asyncio.sleep(5)
         self._render_image()
+        self.running = False
+        logging.debug("Screen render")
