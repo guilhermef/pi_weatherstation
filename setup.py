@@ -10,9 +10,11 @@ setup(
     license="MIT",
     packages=["pi_weatherstation"],
     install_requires=[
-        "imgkit<2.0",
+        "async-imgkit<1.0",
         "jinja2<3.0",
         "async-cron<2.0",
+        "opentsdb-py<1.0",
+        "aioprometheus[aiohttp]<21.0",
     ],
     zip_safe=False,
     entry_points={

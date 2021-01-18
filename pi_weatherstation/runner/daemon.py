@@ -7,12 +7,14 @@ import async_cron.schedule as schedule
 import pi_weatherstation.data.weather as weather_data
 import pi_weatherstation.stores.memory as memory_store
 import pi_weatherstation.output.screen as screen_output
+import pi_weatherstation.metrics.pushgateway as metrics
 
 
 class Daemon:
     def __init__(self):
         self.weather_data = weather_data.Weather(memory_store.store)
         self.screen = screen_output.ScreenOutput(memory_store.store)
+        self.metrics = metrics.PushGatewayMetrics(memory_store.store)
 
     def start(self):
         logging.info("Starting daemon")
@@ -36,6 +38,12 @@ class Daemon:
             job.CronJob(name="debug_store")
             .every(5)
             .second.go(self.show_store)
+        )
+
+        scheduler.add_job(
+            job.CronJob(name="push_metrics")
+            .every(5)
+            .second.go(self.metrics.push_weather_data)
         )
 
         try:
