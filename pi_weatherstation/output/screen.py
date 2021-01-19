@@ -1,6 +1,6 @@
-import asyncio
 import logging
 import pathlib
+import io
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 import async_imgkit.api
@@ -24,6 +24,14 @@ class ScreenOutput:
         self.store = store
         self.running = False
         self.imgkit_config = async_imgkit.api.config()
+        self.display = ST7789.ST7789(
+            port=0,
+            cs=ST7789.BG_SPI_CS_FRONT,  # BG_SPI_CS_BACK or BG_SPI_CS_FRONT
+            dc=9,
+            backlight=19,               # 18 for back BG slot, 19 for front BG slot.
+            spi_speed_hz=80 * 1000 * 1000
+        )
+        self.display.begin()
 
     async def _render_image(self):
         rendered = template.render(resources_folder=RESOURCES_PATH)
@@ -52,4 +60,6 @@ class ScreenOutput:
         logging.debug("Screen render done")
 
     def _display_image(self, img_data):
-        pass
+        image = PIL.Image.open(io.BytesIO(img_data))
+        self.display.display(image)
+
