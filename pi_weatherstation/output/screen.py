@@ -4,6 +4,9 @@ import pathlib
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 import async_imgkit.api
+import PIL
+
+import ST7789
 
 RESOURCES_PATH = pathlib.Path(
     pathlib.Path(__file__).parent, "..", "template", "resources"
@@ -36,9 +39,6 @@ class ScreenOutput:
                 "quiet": "",
             },
         )
-
-        with open("test.png", "wb") as f:
-            f.write(img)
         return img
 
     async def output(self):
@@ -46,6 +46,10 @@ class ScreenOutput:
             logging.debug("Skipping, render already in progress")
         logging.debug("Screen render started")
         self.running = True
-        await self._render_image()
+        img_data = await self._render_image()
+        self._display_image(img_data)
         self.running = False
         logging.debug("Screen render done")
+
+    def _display_image(self, img_data):
+        pass

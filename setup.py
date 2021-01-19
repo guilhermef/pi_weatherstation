@@ -13,8 +13,12 @@ setup(
         "async-imgkit<1.0",
         "jinja2<3.0",
         "async-cron<2.0",
-        "opentsdb-py<1.0",
         "aioprometheus[aiohttp]<21.0",
+        "Pillow<9.0",
+        "st7789<1.0",
+        # st7789 dependencies
+        "numpy<2.0",
+        "spidev<4.0",
     ],
     zip_safe=False,
     entry_points={
