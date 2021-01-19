@@ -24,7 +24,10 @@ class PrometheusMetrics:
         logging.info((f"Serving prometheus metrics on: {PROMETHEUS_SERVER.metrics_url}"))
 
     async def push_weather_data(self):
-        weather = self.store.stored_data.get('weather_sensor', {})
+        weather = self.store.stored_data.get('weather_sensor')
+        if not weather:
+            logging.debug("Weather data unavailable")
+            return
         TEMPERATURE.set({}, weather.get("temperature"))
         PRESSURE.set({}, weather.get("pressure"))
         HUMIDITY.set({}, weather.get("humidity"))

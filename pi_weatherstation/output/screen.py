@@ -51,6 +51,8 @@ class ScreenOutput:
         return img
 
     async def output(self):
+        if not self.store.get("weather_sensor"):
+            logging.debug("Weather data unavailable")
         if self.running:
             logging.info("Skipping, render already in progress")
             return
