@@ -6,7 +6,11 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 import async_imgkit.api
 import PIL.Image
 
-import ST7789
+try:
+    import pi_weatherstation.output.display.ST7789_display as display
+except ModuleNotFoundError:
+    logging.warning("Problem loading display module, using debug display")
+    import pi_weatherstation.output.display.debug_display as display
 
 RESOURCES_PATH = pathlib.Path(
     pathlib.Path(__file__).parent, "..", "template", "resources"
@@ -24,17 +28,13 @@ class ScreenOutput:
         self.store = store
         self.running = False
         self.imgkit_config = async_imgkit.api.config()
-        self.display = ST7789.ST7789(
-            port=0,
-            cs=ST7789.BG_SPI_CS_FRONT,  # BG_SPI_CS_BACK or BG_SPI_CS_FRONT
-            dc=9,
-            backlight=19,               # 18 for back BG slot, 19 for front BG slot.
-            spi_speed_hz=80 * 1000 * 1000
-        )
-        self.display.begin()
+        self.display = display.Display()
 
     async def _render_image(self):
-        rendered = template.render(resources_folder=RESOURCES_PATH)
+        rendered = template.render(
+            resources_folder=RESOURCES_PATH,
+            weather=self.store.get("weather_sensor"),
+        )
         img = await async_imgkit.api.from_string(
             rendered,
             False,
@@ -56,11 +56,7 @@ class ScreenOutput:
         logging.debug("Screen render started")
         self.running = True
         img_data = await self._render_image()
-        self._display_image(img_data)
+        self.display.display_image(img_data)
         self.running = False
         logging.debug("Screen render done")
-
-    def _display_image(self, img_data):
-        image = PIL.Image.open(io.BytesIO(img_data))
-        self.display.display(image)
 
