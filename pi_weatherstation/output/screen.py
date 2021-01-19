@@ -1,9 +1,16 @@
-import asyncio
 import logging
 import pathlib
+import io
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 import async_imgkit.api
+import PIL.Image
+
+try:
+    import pi_weatherstation.output.display.ST7789_display as display
+except ModuleNotFoundError:
+    logging.warning("Problem loading display module, using debug display")
+    import pi_weatherstation.output.display.debug_display as display
 
 RESOURCES_PATH = pathlib.Path(
     pathlib.Path(__file__).parent, "..", "template", "resources"
@@ -21,14 +28,19 @@ class ScreenOutput:
         self.store = store
         self.running = False
         self.imgkit_config = async_imgkit.api.config()
+        self.display = display.Display()
 
     async def _render_image(self):
-        rendered = template.render(resources_folder=RESOURCES_PATH)
+        rendered = template.render(
+            resources_folder=RESOURCES_PATH,
+            weather=self.store.get("weather_sensor"),
+        )
         img = await async_imgkit.api.from_string(
             rendered,
             False,
             config=self.imgkit_config,
             options={
+                "format": "png",
                 "width": "240",
                 "height": "240",
                 "enable-local-file-access": "",
@@ -36,16 +48,15 @@ class ScreenOutput:
                 "quiet": "",
             },
         )
-
-        with open("test.png", "wb") as f:
-            f.write(img)
         return img
 
     async def output(self):
-        if self.running:
-            logging.debug("Skipping, render already in progress")
         logging.debug("Screen render started")
-        self.running = True
-        await self._render_image()
-        self.running = False
-        logging.debug("Screen render done")
+        try:
+            img_data = await self._render_image()
+            self.display.display_image(img_data)
+        except Exception as e:
+            logging.error(e)
+        finally:
+            logging.debug("Screen render done")
+
