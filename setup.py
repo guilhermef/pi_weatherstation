@@ -25,6 +25,7 @@ setup(
         ],
         "bme680": [
             "bme680<2.0",
+            "smbus==1.1.post2",
         ]
     },
     zip_safe=False,
