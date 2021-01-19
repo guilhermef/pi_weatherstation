@@ -62,13 +62,13 @@
         <span class="widget temperature">
             <div class="value">
                 <i class="fas fa-thermometer-three-quarters"></i>
-                {{weather.get("temperature")}}°
+                {{weather.get("temperature")|round|int}}°
             </div>
         </span>
         <span class="widget humidity">
             <div class="value">
                 <i class="fas fa-water"></i>
-                <span class="cell">{{weather.get("humidity")}}%
+                <span class="cell">{{weather.get("humidity")|round|int}}%
                     <div class="sticker">Good</div>
                 </span>
             </div>

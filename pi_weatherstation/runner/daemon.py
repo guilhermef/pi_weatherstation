@@ -7,14 +7,14 @@ import async_cron.schedule as schedule
 import pi_weatherstation.data.weather as weather_data
 import pi_weatherstation.stores.memory as memory_store
 import pi_weatherstation.output.screen as screen_output
-import pi_weatherstation.metrics.pushgateway as metrics
+import pi_weatherstation.metrics.prometheus as metrics
 
 
 class Daemon:
     def __init__(self):
         self.weather_data = weather_data.Weather(memory_store.store)
         self.screen = screen_output.ScreenOutput(memory_store.store)
-        self.metrics = metrics.PushGatewayMetrics(memory_store.store)
+        self.metrics = metrics.PrometheusMetrics(memory_store.store)
 
     def start(self):
         logging.info("Starting daemon")
@@ -47,6 +47,7 @@ class Daemon:
         )
 
         try:
+            loop.run_until_complete(self.metrics.start_prometheus_server())
             loop.run_until_complete(scheduler.start())
         finally:
             loop.run_until_complete(loop.shutdown_asyncgens())
