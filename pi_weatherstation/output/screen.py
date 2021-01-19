@@ -52,11 +52,16 @@ class ScreenOutput:
 
     async def output(self):
         if self.running:
-            logging.debug("Skipping, render already in progress")
-        logging.debug("Screen render started")
+            logging.info("Skipping, render already in progress")
+            return
         self.running = True
-        img_data = await self._render_image()
-        self.display.display_image(img_data)
-        self.running = False
-        logging.debug("Screen render done")
+        logging.debug("Screen render started")
+        try:
+            img_data = await self._render_image()
+            self.display.display_image(img_data)
+        except Exception as e:
+            logging.error(e)
+        finally:
+            self.running = False
+            logging.debug("Screen render done")
 
