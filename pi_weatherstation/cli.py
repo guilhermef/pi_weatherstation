@@ -1,8 +1,6 @@
 import argparse
 import logging
 
-import pi_weatherstation.runner.daemon as daemon
-
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "-l",
@@ -19,5 +17,6 @@ logging.basicConfig(
 
 
 def main():
+    import pi_weatherstation.runner.daemon as daemon
     runner = daemon.Daemon()
     runner.start()

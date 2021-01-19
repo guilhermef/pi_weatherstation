@@ -53,4 +53,4 @@ class Daemon:
             loop.close()
 
     async def show_store(self):
-        print(memory_store.store.stored_data)
+        logging.info(memory_store.store.stored_data)

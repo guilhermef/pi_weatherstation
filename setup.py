@@ -15,12 +15,18 @@ setup(
         "async-cron<2.0",
         "aioprometheus[aiohttp]<21.0",
         "Pillow<9.0",
-        # st7789 dependencies
-        "st7789<1.0",
-        "numpy<2.0",
-        "spidev<4.0",
-        "RPi.GPIO<1.0",
     ],
+    extras_require={
+        "st7789": [
+            "st7789<1.0",
+            "numpy<2.0",
+            "spidev<4.0",
+            "RPi.GPIO<1.0",
+        ],
+        "bme680": [
+            "bme680<2.0",
+        ]
+    },
     zip_safe=False,
     entry_points={
         "console_scripts": ["pi_weatherstation=pi_weatherstation.cli:main"],
