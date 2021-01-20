@@ -12,7 +12,7 @@ setup(
     install_requires=[
         "async-imgkit<1.0",
         "jinja2<3.0",
-        "async-cron<2.0",
+        "asyncio-periodic==2019.2",
         "aioprometheus[aiohttp]<21.0",
         "Pillow<9.0",
     ],

@@ -12,7 +12,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 logging.basicConfig(
-    format="[pi_weatherstation][%(levelname)s]:%(message)s", level=args.loglevel.upper()
+    format="[%(levelname)s][%(module)s]:%(message)s", level=args.loglevel.upper()
 )
 
 

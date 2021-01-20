@@ -1,8 +1,7 @@
 import logging
 import asyncio
 
-import async_cron.job as job
-import async_cron.schedule as schedule
+import periodic
 
 import pi_weatherstation.data.weather as weather_data
 import pi_weatherstation.stores.memory as memory_store
@@ -12,46 +11,37 @@ import pi_weatherstation.metrics.prometheus as metrics
 
 class Daemon:
     def __init__(self):
+        self.loop = asyncio.get_event_loop()
         self.weather_data = weather_data.Weather(memory_store.store)
         self.screen = screen_output.ScreenOutput(memory_store.store)
         self.metrics = metrics.PrometheusMetrics(memory_store.store)
 
     def start(self):
         logging.info("Starting daemon")
-        loop = asyncio.get_event_loop()
-
-        scheduler = schedule.Scheduler(check_interval=1, locale="en_US")
-
-        scheduler.add_job(
-            job.CronJob(name="update_weather")
-            .every(1)
-            .second.go(self.weather_data.update_weather)
-        )
-
-        scheduler.add_job(
-            job.CronJob(name="render_screen")
-            .every(1)
-            .second.go(self.screen.output)
-        )
-
-        scheduler.add_job(
-            job.CronJob(name="debug_store")
-            .every(5)
-            .second.go(self.show_store)
-        )
-
-        scheduler.add_job(
-            job.CronJob(name="push_metrics")
-            .every(5)
-            .second.go(self.metrics.push_weather_data)
-        )
-
         try:
-            loop.run_until_complete(self.metrics.start_prometheus_server())
-            loop.run_until_complete(scheduler.start())
+            self.loop.run_until_complete(self.metrics.start_prometheus_server())
+            self.loop.create_task(self.start_tasks())
+            self.loop.create_task(self.on_weather_updated_event())
+            self.loop.run_forever()
         finally:
-            loop.run_until_complete(loop.shutdown_asyncgens())
-            loop.close()
+            self.loop.run_until_complete(self.loop.shutdown_asyncgens())
+            self.loop.close()
+
+    async def start_tasks(self):
+        update_weather = periodic.Periodic(
+            5, self.weather_data.update_weather
+        )
+        await update_weather.start()
+
+    async def on_weather_updated_event(self):
+        while True:
+            try:
+                await memory_store.store.ready.wait()
+                await self.screen.output()
+                await self.metrics.push_weather_data()
+                await self.show_store()
+            except Exception as e:
+                logging.error(e)
 
     async def show_store(self):
         logging.info(memory_store.store.stored_data)
