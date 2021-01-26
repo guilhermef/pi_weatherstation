@@ -20,7 +20,10 @@ python3 -m venv .env
 
 source .env/bin/activate
 
-pip install -e .[st7789,bme680] # this will install the core dependencies and the dependencies for the screen st7789 and the sensor bme680
+# this will install the core dependencies
+# and the dependencies for the screen st7789 and the sensor bme680
+
+pip install -e .[st7789,bme680]
 
 #run
 
