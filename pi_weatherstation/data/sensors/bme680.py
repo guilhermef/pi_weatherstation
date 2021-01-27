@@ -71,7 +71,7 @@ class Sensor:
                 gas = self.sensor.data.gas_resistance
                 temp_burn_in_data.append(gas)
                 logging.debug(f'Gas baseline calculation in progress: {gas} Ohms')
-                asyncio.sleep(1)
+                await asyncio.sleep(1)
         gas_baseline = sum(temp_burn_in_data[-50:]) / 50.0
 
         logging.debug(f"Gas baseline: {gas_baseline}")
