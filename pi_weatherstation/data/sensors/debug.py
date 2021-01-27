@@ -4,6 +4,6 @@ class Sensor:
         return {
             "temperature": 50,
             "pressure": 500,
-            "humidity": 50,
+            "humidity": 30,
             "gas_resistance": 500,
         }

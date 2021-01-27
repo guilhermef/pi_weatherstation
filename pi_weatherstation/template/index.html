@@ -69,7 +69,7 @@
             <div class="value">
                 <i class="fas fa-water"></i>
                 <span class="cell">{{weather.get("humidity")|round|int}}%
-                    <div class="sticker">Good</div>
+                    <div class="sticker">{{ evaluate_humidity(weather.get("humidity")) }}</div>
                 </span>
             </div>
         </span>
@@ -83,8 +83,8 @@
         <span class="widget time">
             <div class="value">
                 <i class="fas fa-clock"></i>
-                <span class="cell">19 NOV 2020
-                    <div class="sticker">21:55</div>
+                <span class="cell">{{ date.strftime("%d %b %Y") }}
+                    <div class="sticker">{{ date.strftime("%H:%M") }}</div>
                 </span>
             </div>
         </span>

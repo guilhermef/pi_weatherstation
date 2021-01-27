@@ -1,3 +1,4 @@
+import datetime
 import logging
 import pathlib
 import io
@@ -5,6 +6,8 @@ import io
 from jinja2 import Environment, PackageLoader, select_autoescape
 import async_imgkit.api
 import PIL.Image
+
+import pi_weatherstation.helpers as helpers
 
 try:
     import pi_weatherstation.output.display.ST7789_display as display
@@ -34,6 +37,8 @@ class ScreenOutput:
         rendered = template.render(
             resources_folder=RESOURCES_PATH,
             weather=self.store.get("weather_sensor"),
+            date=datetime.datetime.now(),
+            evaluate_humidity=helpers.evaluate_humidity,
         )
         img = await async_imgkit.api.from_string(
             rendered,
