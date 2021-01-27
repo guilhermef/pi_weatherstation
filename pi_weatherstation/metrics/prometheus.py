@@ -19,6 +19,7 @@ class PrometheusMetrics:
         PROMETHEUS_SERVER.register(PRESSURE)
         PROMETHEUS_SERVER.register(HUMIDITY)
         PROMETHEUS_SERVER.register(GAS_RESISTANCE)
+        PROMETHEUS_SERVER.register(AIR_QUALITY)
 
     async def start_prometheus_server(self):
         await PROMETHEUS_SERVER.start(addr="0.0.0.0", port=9191)
