@@ -7,6 +7,7 @@ TEMPERATURE = Gauge("temperature", "Temperature")
 PRESSURE = Gauge("pressure", "Pressure")
 HUMIDITY = Gauge("humidity", "Humidity")
 GAS_RESISTANCE = Gauge("gas_resistance", "Gas resistance")
+AIR_QUALITY = Gauge("air_quality", "Air quality")
 
 PROMETHEUS_SERVER = Service()
 
@@ -32,3 +33,5 @@ class PrometheusMetrics:
         PRESSURE.set({}, weather.get("pressure"))
         HUMIDITY.set({}, weather.get("humidity"))
         GAS_RESISTANCE.set({}, weather.get("gas_resistance"))
+        if "air_quality" in weather:
+            AIR_QUALITY.set({}, weather.get("air_quality"))

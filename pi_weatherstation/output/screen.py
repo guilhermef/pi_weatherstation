@@ -38,7 +38,7 @@ class ScreenOutput:
             resources_folder=RESOURCES_PATH,
             weather=self.store.get("weather_sensor"),
             date=datetime.datetime.now(),
-            evaluate_humidity=helpers.evaluate_humidity,
+            helpers=helpers,
         )
         img = await async_imgkit.api.from_string(
             rendered,

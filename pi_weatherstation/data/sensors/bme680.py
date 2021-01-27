@@ -60,7 +60,7 @@ class Sensor:
         return data
 
     async def calculate_gas_baseline(self):
-        logging.debug(f'Collecting gas resistance burn-in data for {BURN_IN_TIME} seconds')
+        logging.info(f'Collecting gas resistance burn-in data for {BURN_IN_TIME} seconds')
         temp_burn_in_data = []
         start_time = time.time()
         curr_time = time.time()
@@ -74,7 +74,7 @@ class Sensor:
                 await asyncio.sleep(1)
         gas_baseline = sum(temp_burn_in_data[-50:]) / 50.0
 
-        logging.debug(f"Gas baseline: {gas_baseline}")
+        logging.info(f"Gas baseline ready, air quality available: {gas_baseline}")
 
         self.gas_baseline.set_result(
             gas_baseline

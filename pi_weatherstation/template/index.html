@@ -68,15 +68,17 @@
         <span class="widget humidity">
             <div class="value">
                 <i class="fas fa-water"></i>
-                <span class="cell">{{weather.get("humidity")|round|int}}%
-                    <div class="sticker">{{ evaluate_humidity(weather.get("humidity")) }}</div>
+                <span class="cell">
+                    {{weather.get("humidity")|round|int}}%
+                    <div class="sticker">{{ helpers.evaluate_humidity(weather.get("humidity")) }}</div>
                 </span>
             </div>
         </span>
         <span class="widget air-quality">
             <div class="value">
                 <span class="cell">Air quality
-                    <div class="sticker">Good</div>
+                    <div>{{weather.get("air_quality", 0)|round|int}}%</div>
+                    <div class="sticker">{{ helpers.evaluate_air_quality(weather.get("air_quality", None)) }}</div>
                 </span>
             </div>
         </span>
