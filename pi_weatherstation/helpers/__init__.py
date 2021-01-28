@@ -10,7 +10,7 @@ def evaluate_humidity(humidity):
 def evaluate_air_quality(air_quality):
     if air_quality is None:
         return "unavailable"
-    if air_quality < 60:
+    if air_quality < 40:
         return "bad"
     else:
         return "good"

@@ -7,6 +7,7 @@ import pi_weatherstation.data.weather as weather_data
 import pi_weatherstation.stores.memory as memory_store
 import pi_weatherstation.output.screen as screen_output
 import pi_weatherstation.metrics.prometheus as metrics
+import pi_weatherstation.config as config
 
 
 class Daemon:
@@ -33,13 +34,24 @@ class Daemon:
         )
         await update_weather.start()
 
+    def get_tasks(self):
+        tasks = [
+            self.show_store,
+        ]
+
+        if config.getboolean("enable_metrics"):
+            tasks.append(self.metrics.push_weather_data)
+
+        if config.getboolean("enable_screen"):
+            tasks.append(self.screen.output)
+
+        return tasks
+
     async def on_weather_updated_event(self):
         while True:
             try:
                 await memory_store.store.ready.wait()
-                await self.screen.output()
-                await self.metrics.push_weather_data()
-                await self.show_store()
+                await asyncio.gather(*[task() for task in self.get_tasks()])
             except Exception as e:
                 logging.error(e)
 
