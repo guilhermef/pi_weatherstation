@@ -1,0 +1,31 @@
+language: python
+
+arch:
+  - arm64
+
+python:
+  - "3.6"
+  - "3.7"
+  - "3.8"
+  - "3.9"
+  - pypy3
+
+addons:
+  apt:
+    packages:
+    - wkhtmltopdf
+    - xvfb
+
+install:
+  - "pip install -e .[st7789,bme680]"
+
+
+after_success: bash <(curl -s https://codecov.io/bash)
+
+deploy:
+  provider: pypi
+  username: "__token__"
+  password: $PYPI_TOKEN
+  on:
+    tags: true
+    python: "3.9"
