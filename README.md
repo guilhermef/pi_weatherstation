@@ -4,6 +4,10 @@
 # pi_weatherstation
 Read the data from pimoroni BME680 and display on pimoroni SPI screen
 
+![Sensors assembled](https://raw.githubusercontent.com/guilhermef/pi_weatherstation/main/examples/sensors.jpeg)
+
+![Grafana dashboard](https://raw.githubusercontent.com/guilhermef/pi_weatherstation/main/examples/grafana_screenshot.png)
+
 ## Dependencies:
 * wkhtmltopdf(https://wkhtmltopdf.org/downloads.html)
 
