@@ -1,0 +1,14 @@
+[Unit]
+Description=pi_weatherstation
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/pi_weatherstation/.env/bin/pi_weatherstation -c <your config file>
+
+SyslogIdentifier=pi_weatherstation
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
