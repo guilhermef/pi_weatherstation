@@ -9,24 +9,29 @@ Read the data from pimoroni BME680 and display on pimoroni SPI screen
 
 ## Install on RaspberryPI
 * Enable SPI and I2C
+* Install the dependencies
 ```
 sudo apt-get install python3-venv python3-dev libatlas-base-dev wkhtmltopdf libopenjp2-7
-
+```
+* Create the folder to store the virtualenv
+```
 mkdir pi_weatherstation
 
 cd pi_weatherstation
-
+```
+* Create the virtualenv and activate it
+```
 python3 -m venv .env
 
 source .env/bin/activate
-
-# this will install the core dependencies
-# and the dependencies for the screen st7789 and the sensor bme680
-
+```
+* Install the via pip with the sensors dependencies
+```
 pip install pi_weatherstation\[st7789,bme680\]
+```
 
-#run
-
+* Run
+```
 pi_weatherstation -l debug
 ```
 
