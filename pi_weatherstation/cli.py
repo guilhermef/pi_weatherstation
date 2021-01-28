@@ -14,17 +14,14 @@ parser.add_argument(
 )
 
 parser.add_argument(
-    "-v",
-    "--version",
-    help="Show version and exit",
-    action="store_true"
+    "-v", "--version", help="Show version and exit", action="store_true"
 )
 
 parser.add_argument(
     "-c",
     "--config",
     help="Config file path. Example '/etc/pi_weatherstation/config.ini'",
-    default="pi_weatherstation.ini"
+    default="pi_weatherstation.ini",
 )
 
 args = parser.parse_args()
@@ -42,5 +39,6 @@ def main():
     config.init_config(args.config)
 
     import pi_weatherstation.runner.daemon as daemon
+
     runner = daemon.Daemon()
     runner.start()

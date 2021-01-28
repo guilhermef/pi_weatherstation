@@ -29,9 +29,7 @@ class Daemon:
             self.loop.close()
 
     async def start_tasks(self):
-        update_weather = periodic.Periodic(
-            5, self.weather_data.update_weather
-        )
+        update_weather = periodic.Periodic(5, self.weather_data.update_weather)
         await update_weather.start()
 
     def get_tasks(self):

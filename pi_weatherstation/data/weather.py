@@ -18,6 +18,4 @@ class Weather:
         sensor_data = await self.sensor.get_sensor_data()
         if not sensor_data:
             return
-        self.store.update({
-            "weather_sensor": sensor_data
-        })
+        self.store.update({"weather_sensor": sensor_data})

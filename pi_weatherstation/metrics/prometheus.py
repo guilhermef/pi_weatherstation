@@ -29,10 +29,12 @@ class PrometheusMetrics:
             addr=config.get("metrics_host"),
             port=config.getint("metrics_port"),
         )
-        logging.info((f"Serving prometheus metrics on: {PROMETHEUS_SERVER.metrics_url}"))
+        logging.info(
+            (f"Serving prometheus metrics on: {PROMETHEUS_SERVER.metrics_url}")
+        )
 
     async def push_weather_data(self):
-        weather = self.store.stored_data.get('weather_sensor')
+        weather = self.store.stored_data.get("weather_sensor")
         if not weather:
             logging.debug("Weather data unavailable")
             return

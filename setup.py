@@ -5,8 +5,9 @@ from pi_weatherstation import VERSION
 
 # read the contents of your README file
 from os import path
+
 this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, "README.md"), encoding='utf-8') as f:
+with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 
@@ -15,7 +16,7 @@ setup(
     version=VERSION,
     description="Read the data from pimoroni BME680 and display on pimoroni SPI screen",
     long_description=long_description,
-    long_description_content_type='text/markdown',
+    long_description_content_type="text/markdown",
     url="http://github.com/guilhermef/pi_weatherstation",
     author="Guilherme Souza",
     author_email="guilherme@souza.tech",
@@ -38,11 +39,11 @@ setup(
         "bme680": [
             "bme680<2.0",
             "smbus==1.1.post2",
-        ]
+        ],
     },
     zip_safe=False,
     classifiers=[
-        "Development Status :: 4 - Beta"
+        "Development Status :: 4 - Beta",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",

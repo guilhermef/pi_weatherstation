@@ -1,5 +1,4 @@
 class Sensor:
-
     async def get_sensor_data(self):
         return {
             "temperature": 50,

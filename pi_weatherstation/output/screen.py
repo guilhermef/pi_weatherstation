@@ -64,4 +64,3 @@ class ScreenOutput:
             logging.error(e)
         finally:
             logging.debug("Screen render done")
-
