@@ -1,5 +1,6 @@
 prune dist
 prune build
+prune .env
 recursive-include pi_weatherstation *.py
 recursive-include pi_weatherstation *.css
 recursive-include pi_weatherstation *.svg

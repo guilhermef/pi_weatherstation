@@ -6,7 +6,7 @@ from pi_weatherstation import VERSION
 # read the contents of your README file
 from os import path
 this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+with open(path.join(this_directory, "README.md"), encoding='utf-8') as f:
     long_description = f.read()
 
 
@@ -41,6 +41,18 @@ setup(
         ]
     },
     zip_safe=False,
+    classifiers=[
+        "Development Status :: 4 - Beta"
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Framework :: AsyncIO",
+        "Operating System :: POSIX :: Linux",
+        "Topic :: Utilities",
+        "License :: OSI Approved :: MIT License",
+    ],
     entry_points={
         "console_scripts": ["pi_weatherstation=pi_weatherstation.cli:main"],
     },

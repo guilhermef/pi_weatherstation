@@ -37,7 +37,7 @@ class PrometheusMetrics:
             logging.debug("Weather data unavailable")
             return
         labels = {
-            "pi_weatherstation_verions": pi_weatherstation.VERSION,
+            "pi_weatherstation_version": pi_weatherstation.VERSION,
             "location": config.get("metrics_location_label"),
         }
         TEMPERATURE.set(labels, weather.get("temperature"))
