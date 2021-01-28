@@ -1,0 +1,15 @@
+prune dist
+prune build
+recursive-include pi_weatherstation *.py
+recursive-include pi_weatherstation *.css
+recursive-include pi_weatherstation *.svg
+recursive-include pi_weatherstation *.eot
+recursive-include pi_weatherstation *.ttf
+recursive-include pi_weatherstation *.woff
+recursive-include pi_weatherstation *.woff2
+recursive-include pi_weatherstation *.txt
+recursive-include pi_weatherstation *.html
+recursive-exclude pi_weatherstation *.pyc
+recursive-exclude pi_weatherstation *.so
+
+include LICENSE README.mkd
