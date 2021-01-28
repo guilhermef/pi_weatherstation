@@ -10,17 +10,14 @@ python:
   - "3.9"
   - pypy3
 
-addons:
-  apt:
-    packages:
-    - wkhtmltopdf
-    - xvfb
-
 install:
   - "pip install -e .[st7789,bme680]"
+  - "pip install flake8"
+  - "pip install black"
 
-
-after_success: bash <(curl -s https://codecov.io/bash)
+script:
+  - black --check pi_weatherstation/.
+  - flake8 --exit-zero --statistics pi_weatherstation/.
 
 deploy:
   provider: pypi

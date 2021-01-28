@@ -3,7 +3,7 @@ import logging
 import pi_weatherstation
 import pi_weatherstation.config as config
 
-from aioprometheus import pusher, Gauge, Registry, Service
+from aioprometheus import Gauge, Service
 
 
 TEMPERATURE = Gauge("temperature", "Temperature")

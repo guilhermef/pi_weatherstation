@@ -1,11 +1,9 @@
 import datetime
 import logging
 import pathlib
-import io
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 import async_imgkit.api
-import PIL.Image
 
 import pi_weatherstation.helpers as helpers
 
