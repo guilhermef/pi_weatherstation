@@ -1,4 +1,4 @@
-[![Build Status](https://www.travis-ci.com/guilhermef/pi_weatherstation.svg?branch=master)](https://www.travis-ci.com/guilhermef/pi_weatherstation)
+[![Build Status](https://www.travis-ci.com/guilhermef/pi_weatherstation.svg?branch=main)](https://www.travis-ci.com/guilhermef/pi_weatherstation)
 [![PyPI version](https://badge.fury.io/py/pi-weatherstation.svg)](https://badge.fury.io/py/pi-weatherstation)
 
 # pi_weatherstation
