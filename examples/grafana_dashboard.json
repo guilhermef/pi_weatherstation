@@ -19,14 +19,17 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": 5,
-    "iteration": 1611843089078,
+    "iteration": 1611913326340,
     "links": [],
     "panels": [
         {
             "datasource": "$datasource",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {},
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
@@ -58,19 +61,21 @@
                 "orientation": "auto",
                 "reduceOptions": {
                     "calcs": [
-                        "last"
+                        "lastNotNull"
                     ],
-                    "fields": "",
+                    "fields": "/^pi_weatherstation_version$/",
                     "values": false
                 },
-                "textMode": "name"
+                "textMode": "auto"
             },
             "pluginVersion": "7.3.7",
             "targets": [
                 {
                     "expr": "temperature{pi_weatherstation_version=~\".*\"}",
+                    "format": "table",
+                    "hide": false,
                     "interval": "",
-                    "legendFormat": "{{pi_weatherstation_version}}",
+                    "legendFormat": "{{location}} - {{pi_weatherstation_version}}",
                     "queryType": "randomWalk",
                     "refId": "A"
                 }
@@ -78,6 +83,7 @@
             "timeFrom": null,
             "timeShift": null,
             "title": "Version",
+            "transformations": [],
             "type": "stat"
         },
         {
@@ -126,7 +132,7 @@
                 {
                     "expr": "air_quality{location=~\"$location\"}",
                     "interval": "",
-                    "legendFormat": "",
+                    "legendFormat": "{{location}} - {{pi_weatherstation_version}}",
                     "queryType": "randomWalk",
                     "refId": "A"
                 }
@@ -173,7 +179,7 @@
             "options": {
                 "reduceOptions": {
                     "calcs": [
-                        "mean"
+                        "lastNotNull"
                     ],
                     "fields": "",
                     "values": false
@@ -186,7 +192,7 @@
                 {
                     "expr": "humidity{location=~\"$location\"}",
                     "interval": "",
-                    "legendFormat": "",
+                    "legendFormat": "{{location}} - {{pi_weatherstation_version}}",
                     "queryType": "randomWalk",
                     "refId": "A"
                 }
@@ -201,7 +207,10 @@
             "fieldConfig": {
                 "defaults": {
                     "custom": {},
+                    "decimals": 2,
                     "mappings": [],
+                    "max": 40,
+                    "min": -5,
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [
@@ -225,20 +234,20 @@
             "options": {
                 "reduceOptions": {
                     "calcs": [
-                        "mean"
+                        "lastNotNull"
                     ],
                     "fields": "",
                     "values": false
                 },
                 "showThresholdLabels": false,
-                "showThresholdMarkers": true
+                "showThresholdMarkers": false
             },
             "pluginVersion": "7.3.7",
             "targets": [
                 {
                     "expr": "temperature{location=~\"$location\"}",
                     "interval": "",
-                    "legendFormat": "",
+                    "legendFormat": "{{location}} - {{pi_weatherstation_version}}",
                     "queryType": "randomWalk",
                     "refId": "A"
                 }
@@ -298,7 +307,7 @@
                 {
                     "expr": "temperature{location=~\"$location\"}",
                     "interval": "",
-                    "legendFormat": "",
+                    "legendFormat": "{{location}} - {{pi_weatherstation_version}}",
                     "queryType": "randomWalk",
                     "refId": "A"
                 }
@@ -395,7 +404,7 @@
                 {
                     "expr": "air_quality{location=~\"$location\"}",
                     "interval": "",
-                    "legendFormat": "",
+                    "legendFormat": "{{location}} - {{pi_weatherstation_version}}",
                     "queryType": "randomWalk",
                     "refId": "A"
                 }
@@ -500,7 +509,7 @@
                 {
                     "expr": "humidity{location=~\"$location\"}",
                     "interval": "",
-                    "legendFormat": "",
+                    "legendFormat": "{{location}} - {{pi_weatherstation_version}}",
                     "queryType": "randomWalk",
                     "refId": "A"
                 }
@@ -613,7 +622,7 @@
                 {
                     "expr": "gas_resistance{location=~\"$location\"}",
                     "interval": "",
-                    "legendFormat": "",
+                    "legendFormat": "{{location}} - {{pi_weatherstation_version}}",
                     "queryType": "randomWalk",
                     "refId": "A"
                 }
@@ -709,7 +718,7 @@
                 {
                     "expr": "pressure{location=~\"$location\"}",
                     "interval": "",
-                    "legendFormat": "",
+                    "legendFormat": "{{location}} - {{pi_weatherstation_version}}",
                     "queryType": "randomWalk",
                     "refId": "A"
                 }
@@ -812,12 +821,12 @@
         ]
     },
     "time": {
-        "from": "now-15m",
+        "from": "now-1h",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "pi_weatherstation",
     "uid": "LrmLc1fMz",
-    "version": 21
+    "version": 26
 }
